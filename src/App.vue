@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
-    <herro-view />
+    <router-view></router-view>
+
     <footer-component />
   </div>
 </template>
