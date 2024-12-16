@@ -1,22 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HerroView from '../views/HerroView.vue'
-import OurCoffeeView from '../views/OurCoffeeView.vue'
-import ForYourPlease from '../views/ForYourPleasure.vue'
-import ContactUs from '../views/ContactUs.vue'
-import ThankYouPage from '../views/ThankYouPage.vue'
-import OurCoffeeItem from '@/views/OurCoffeeItem.vue'
-
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/', component: HerroView },
-    { path: '/our-cofee', component: OurCoffeeView },
-    { path: '/for-your', component: ForYourPlease },
-    { path: '/contact-us', component: ContactUs },
-    { path: '/thank-you', component: ThankYouPage },
-    { path: '/our-cofee-item', component: OurCoffeeItem },
+    { path: '/', component: () => import('@/views/HerroView.vue') },
+    { path: '/our-cofee', component: () => import('@/views/OurCoffeeView.vue') },
+    { path: '/for-your', component: () => import('@/views/ForYourPleasure.vue') },
+    { path: '/contact-us', component: () => import('@/views/ContactUs.vue') },
+    { path: '/thank-you', component: () => import('@/views/ThankYouPage.vue') },
+    { path: '/our-cofee-item', component: () => import('@/views/OurCoffeeItem.vue') },
 ]
 
 const router = new VueRouter({
