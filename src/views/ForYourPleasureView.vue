@@ -1,10 +1,10 @@
 <template>
-      <main>
+    <main>
         <div class="banner goodspage-banner">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <nav-bar-component />  
+                        <nav-bar-component />
                     </div>
                 </div>
                 <h1 class="title-big">For your pleasure</h1>
@@ -30,9 +30,9 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="line"></div>
-    
+
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        </section>    
+        </section>
     </main>
 </template>
 
@@ -55,6 +55,59 @@ import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
 
 export default {
-  components: { NavBarComponent, ProductCard },
+    components: { NavBarComponent, ProductCard },
+    data() {
+        return {
+            classes: {
+                classText: 'shop__item-title',
+                classCountry: 'shop__item-country',
+                classPrice: 'shop__item-price',
+            },
+            cards: [
+                {
+                    id: 0,
+                    image: 'good-1.jpg',
+                    text: 'Solimo Coffee Beans 2kg your',
+                    country: 'Brazil',
+                    price: '10.73',
+                },
+                {
+                    id: 1,
+                    image: 'good-1.jpg',
+                    text: 'Presto Coffee Beans 1kg your',
+                    country: 'Brazil',
+                    price: '15.99',
+                },
+                {
+                    id: 2,
+                    image: 'shop__item',
+                    text: 'AROMISTICO Coffee 1kg your',
+                    country: 'Brazil',
+                    price: '6.99',
+                },
+                {
+                    id: 3,
+                    image: 'good-1.jpg',
+                    text: 'Solimo Coffee Beans 2.1kg your',
+                    country: 'Brazil',
+                    price: '10.73',
+                },
+                {
+                    id: 4,
+                    image: 'good-1.jpg',
+                    text: 'Solimo Coffee Beans 2.2kg your',
+                    country: 'Brazil',
+                    price: '11.73',
+                },
+                {
+                    id: 5,
+                    image: 'good-1.jpg',
+                    text: 'Solimo Coffee Beans 2.3kg your',
+                    country: 'Brazil',
+                    price: '12.73',
+                },
+            ]
+        }
+    }
 };
 </script>

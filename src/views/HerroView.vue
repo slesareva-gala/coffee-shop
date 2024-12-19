@@ -10,16 +10,12 @@
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <h1 class="title-big">Everything You Love About Coffee</h1>
-            <img
-              class="beanslogo"
-              src="@/assets/logo/Beans_logo.svg"
-              alt="Beans logo"
-            />
+            <img class="beanslogo" src="@/assets/logo/Beans_logo.svg" alt="Beans logo" />
             <div class="preview__subtitle">
               We makes every day full of energy and taste
             </div>
             <div class="preview__subtitle">Want to try our beans?</div>
-            <router-link to="/our-cofee" class="preview__btn">More</router-link>           
+            <router-link :to="links[0].link" class="preview__btn">More</router-link>
           </div>
         </div>
       </div>
@@ -29,11 +25,7 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
             <div class="title">About Us</div>
-            <img
-              class="beanslogo"
-              src="@/assets/logo/Beans_logo_dark.svg"
-              alt="Beans logo"
-            />
+            <img class="beanslogo" src="@/assets/logo/Beans_logo_dark.svg" alt="Beans logo" />
             <div class="about__text">
               Extremity sweetness difficult behaviour he of. On disposal of as
               landlord horrible. Afraid at highly months do things on at.
@@ -76,5 +68,39 @@ import ProductCard from "@/components/ProductCard.vue";
 
 export default {
   components: { NavBarComponent, ProductCard },
+  data() {
+    return {
+      classes: {
+        classText: 'best__item-title',
+        classPrice: 'best__item-price',
+      },
+      links: [
+        {
+          id: 1,
+          link: '/our-cofee'
+        },
+      ],
+      cards: [
+        {
+          id: 0,
+          image: 'coffee-1.jpg',
+          text: 'Solimo Coffee Beans 2kg',
+          price: '10.73',
+        },
+        {
+          id: 1,
+          image: 'coffee-2.jpg',
+          text: 'Presto Coffee Beans 1kg',
+          price: '15.99',
+        },
+        {
+          id: 2,
+          image: 'coffee-3.jpg',
+          text: 'AROMISTICO Coffee 1kg',
+          price: '6.99',
+        },
+      ]
+    }
+  }
 };
 </script>
