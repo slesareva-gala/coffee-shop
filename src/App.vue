@@ -7,13 +7,11 @@
 </template>
 
 <script>
-import HerroView from "@/views/HerroView.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
 export default {
-  components: { HerroView, FooterComponent },
+  components: { FooterComponent },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,13 +1,13 @@
 <template>
-       <main>
+    <main>
         <div class="banner contactspage-banner">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <nav-bar-component />  
+                        <nav-bar-component />
                     </div>
                 </div>
-                <h1 class="title-big">Contact us</h1>
+                <title-page text="Contact us" />
             </div>
         </div>
         <section class="contacts">
@@ -16,7 +16,7 @@
                     <div class="col col-12 col-lg-6 offset-0 offset-lg-3">
                         <div class="title mt-5">Tell us about your tastes</div>
                         <img class="beanslogo mt-5" src="@/assets/logo/Beans_logo_dark.svg" alt="Beans logo">
-    
+
                         <form action="#" class="mt-5">
                             <div class="form-group row">
                                 <div class="col col-12 col-sm-3 d-flex align-items-center">
@@ -29,7 +29,7 @@
                                     <input type="text" class="form-control" id="name-input">
                                 </div>
                             </div>
-    
+
                             <div class="form-group row">
                                 <div class="col col-12 col-sm-3 d-flex align-items-center">
                                     <label for="email-input" class="mb-0">
@@ -41,7 +41,7 @@
                                     <input type="email" class="form-control" id="email-input">
                                 </div>
                             </div>
-    
+
                             <div class="form-group row">
                                 <div class="col col-12 col-sm-3 d-flex align-items-center">
                                     <label for="phone-input" class="mb-0">
@@ -52,7 +52,7 @@
                                     <input type="tel" class="form-control" id="phone-input">
                                 </div>
                             </div>
-    
+
                             <div class="form-group row textarea">
                                 <div class="col col-12 d-flex justify-content-center">
                                     <label for="pmessage" class="mb-3 mt-3 text-center">
@@ -65,7 +65,7 @@
                                         placeholder="Leave your comments here"></textarea>
                                 </div>
                             </div>
-    
+
                             <div class="row">
                                 <div class="col">
                                     <button class="btn btn-outline-dark send-btn">Send us</button>
@@ -75,14 +75,15 @@
                     </div>
                 </div>
             </div>
-        </section>      
+        </section>
     </main>
 </template>
 
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
+import TitlePage from '@/components/TitlePage.vue';
 
 export default {
-  components: { NavBarComponent},
+    components: { NavBarComponent, TitlePage },
 };
 </script>

@@ -7,7 +7,7 @@
                         <nav-bar-component />
                     </div>
                 </div>
-                <h1 class="title-big">Our Coffee</h1>
+                <title-page text="Our Coffee" />
             </div>
         </div>
         <section class="shop">
@@ -55,12 +55,18 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
+                            <product-card :name="coffee[0].name" :price="coffee[0].price" :image="coffee[0].image"
+                                :country="coffee[0].country" />
+                            <product-card :name="coffee[1].name" :price="coffee[1].price" :image="coffee[1].image"
+                                :country="coffee[1].country" />
+                            <product-card :name="coffee[2].name" :price="coffee[2].price" :image="coffee[2].image"
+                                :country="coffee[2].country" />
+                            <product-card :name="coffee[3].name" :price="coffee[3].price" :image="coffee[3].image"
+                                :country="coffee[3].country" />
+                            <product-card :name="coffee[4].name" :price="coffee[4].price" :image="coffee[4].image"
+                                :country="coffee[4].country" />
+                            <product-card :name="coffee[5].name" :price="coffee[5].price" :image="coffee[5].image"
+                                :country="coffee[5].country" />
                         </div>
                     </div>
                 </div>
@@ -72,58 +78,54 @@
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
+import TitlePage from '@/components/TitlePage.vue';
 
 export default {
-    components: { NavBarComponent, ProductCard },
+    components: { NavBarComponent, ProductCard, TitlePage },
     data() {
         return {
-            classes: {
-                classText: 'shop__item-title',
-                classCountry: 'shop__item-country',
-                classPrice: 'shop__item-price',
-            },
-            cards: [
+            coffee: [
                 {
                     id: 0,
-                    image: 'coffee-3.jpg',
-                    text: 'Solimo Coffee Beans 2kg our',
+                    name: 'Solimo Coffee Beans 2kg our',
                     country: 'Brazil',
                     price: '10.73',
+                    image: 'coffee-3.jpg',
                 },
                 {
                     id: 1,
-                    image: 'coffee-3.jpg',
-                    text: 'Presto Coffee Beans 1kg our',
+                    name: 'Presto Coffee Beans 1kg our',
                     country: 'Brazil',
                     price: '15.99',
+                    image: 'coffee-3.jpg',
                 },
                 {
                     id: 2,
-                    image: 'coffee-3.jpg',
-                    text: 'AROMISTICO Coffee 1kg our',
+                    name: 'AROMISTICO Coffee 1kg our',
                     country: 'Brazil',
                     price: '6.99',
+                    image: 'coffee-3.jpg',
                 },
                 {
                     id: 3,
-                    image: 'coffee-3.jpg',
-                    text: 'Solimo Coffee Beans 2.1kg our',
+                    name: 'Solimo Coffee Beans 2.1kg our',
                     country: 'Brazil',
                     price: '10.73',
+                    image: 'coffee-3.jpg',
                 },
                 {
                     id: 4,
-                    image: 'coffee-3.jpg',
-                    text: 'Solimo Coffee Beans 2.2kg our',
+                    name: 'Solimo Coffee Beans 2.2kg our',
                     country: 'Brazil',
                     price: '11.73',
+                    image: 'coffee-3.jpg',
                 },
                 {
                     id: 5,
-                    image: 'coffee-3.jpg',
-                    text: 'Solimo Coffee Beans 2.3kg our',
+                    name: 'Solimo Coffee Beans 2.3kg our',
                     country: 'Brazil',
                     price: '12.73',
+                    image: 'coffee-3.jpg',
                 },
             ]
         }

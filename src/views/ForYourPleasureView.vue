@@ -7,7 +7,7 @@
                         <nav-bar-component />
                     </div>
                 </div>
-                <h1 class="title-big">For your pleasure</h1>
+                <title-page text="For your pleasure" />
             </div>
         </div>
         <section class="shop">
@@ -36,12 +36,18 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
-                            <product-card />
+                            <product-card :name="goods[0].name" :price="goods[0].price" :image="goods[0].image"
+                                :country="goods[0].country" />
+                            <product-card :name="goods[1].name" :price="goods[1].price" :image="goods[1].image"
+                                :country="goods[1].country" />
+                            <product-card :name="goods[2].name" :price="goods[2].price" :image="goods[2].image"
+                                :country="goods[2].country" />
+                            <product-card :name="goods[3].name" :price="goods[3].price" :image="goods[3].image"
+                                :country="goods[3].country" />
+                            <product-card :name="goods[4].name" :price="goods[4].price" :image="goods[4].image"
+                                :country="goods[4].country" />
+                            <product-card :name="goods[5].name" :price="goods[5].price" :image="goods[5].image"
+                                :country="goods[5].country" />
                         </div>
                     </div>
                 </div>
@@ -53,58 +59,54 @@
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
+import TitlePage from '@/components/TitlePage.vue';
 
 export default {
-    components: { NavBarComponent, ProductCard },
+    components: { NavBarComponent, ProductCard, TitlePage },
     data() {
         return {
-            classes: {
-                classText: 'shop__item-title',
-                classCountry: 'shop__item-country',
-                classPrice: 'shop__item-price',
-            },
-            cards: [
+            goods: [
                 {
                     id: 0,
-                    image: 'good-1.jpg',
-                    text: 'Solimo Coffee Beans 2kg your',
+                    name: 'Solimo Coffee Beans 2kg your',
                     country: 'Brazil',
                     price: '10.73',
+                    image: 'good-1.jpg',
                 },
                 {
                     id: 1,
-                    image: 'good-1.jpg',
-                    text: 'Presto Coffee Beans 1kg your',
+                    name: 'Presto Coffee Beans 1kg your',
                     country: 'Brazil',
                     price: '15.99',
+                    image: 'good-1.jpg',
                 },
                 {
                     id: 2,
-                    image: 'shop__item',
-                    text: 'AROMISTICO Coffee 1kg your',
+                    name: 'AROMISTICO Coffee 1kg your',
                     country: 'Brazil',
                     price: '6.99',
+                    image: 'good-1.jpg',
                 },
                 {
                     id: 3,
-                    image: 'good-1.jpg',
-                    text: 'Solimo Coffee Beans 2.1kg your',
+                    name: 'Solimo Coffee Beans 2.1kg your',
                     country: 'Brazil',
                     price: '10.73',
+                    image: 'good-1.jpg',
                 },
                 {
                     id: 4,
-                    image: 'good-1.jpg',
-                    text: 'Solimo Coffee Beans 2.2kg your',
+                    name: 'Solimo Coffee Beans 2.2kg your',
                     country: 'Brazil',
                     price: '11.73',
+                    image: 'good-1.jpg',
                 },
                 {
                     id: 5,
-                    image: 'good-1.jpg',
-                    text: 'Solimo Coffee Beans 2.3kg your',
+                    name: 'Solimo Coffee Beans 2.3kg your',
                     country: 'Brazil',
                     price: '12.73',
+                    image: 'good-1.jpg',
                 },
             ]
         }

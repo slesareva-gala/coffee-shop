@@ -6,21 +6,18 @@
           <img :src="require(`@/assets/logo/${links[0].icon}`)" :alt="links[0].icon" />
         </router-link>
       </li>
-      <li class="header__item">
-        <router-link :to="links[1].link">{{ links[1].text }}</router-link>
-      </li>
-      <li class="header__item">
-        <router-link :to="links[2].link">{{ links[2].text }}</router-link>
-      </li>
-      <li class="header__item">
-        <router-link :to="links[3].link">{{ links[3].text }}</router-link>
-      </li>
+      <nav-bar-item classItem="header__item" :link="links[1].link" :text="links[1].text" />
+      <nav-bar-item classItem="header__item" :link="links[2].link" :text="links[2].text" />
+      <nav-bar-item classItem="header__item" :link="links[3].link" :text="links[3].text" />
     </ul>
   </header>
 </template>
 
 <script>
+import NavBarItem from '@/components/NavBarItem.vue';
+
 export default {
+  components: { NavBarItem },
   data() {
     return {
       links: [
