@@ -48,14 +48,7 @@
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
-              <product-card
-                v-for="card in goods"
-                :key="card.id"
-                :name="card.name"
-                :price="card.price"
-                :image="card.image"
-                :country="card.country"
-              />
+              <product-card v-for="card in goods" :key="card.id" :card="card" />
             </div>
           </div>
         </div>
@@ -71,53 +64,10 @@ import TitlePage from "@/components/TitlePage.vue";
 
 export default {
   components: { NavBarComponent, ProductCard, TitlePage },
-  data() {
-    return {
-      goods: [
-        {
-          id: 0,
-          name: "Solimo Coffee Beans 2kg your",
-          country: "Brazil",
-          price: 10.73,
-          image: "good-1.jpg",
-        },
-        {
-          id: 1,
-          name: "Presto Coffee Beans 1kg your",
-          country: "Brazil",
-          price: 15.99,
-          image: "good-1.jpg",
-        },
-        {
-          id: 2,
-          name: "AROMISTICO Coffee 1kg your",
-          country: "Brazil",
-          price: 6.99,
-          image: "good-1.jpg",
-        },
-        {
-          id: 3,
-          name: "Solimo Coffee Beans 2.1kg your",
-          country: "Brazil",
-          price: 10.73,
-          image: "good-1.jpg",
-        },
-        {
-          id: 4,
-          name: "Solimo Coffee Beans 2.2kg your",
-          country: "Brazil",
-          price: 11.73,
-          image: "good-1.jpg",
-        },
-        {
-          id: 5,
-          name: "Solimo Coffee Beans 2.3kg your",
-          country: "Brazil",
-          price: 12.73,
-          image: "good-1.jpg",
-        },
-      ],
-    };
+  computed: {
+    goods() {
+      return this.$store.getters["getGoods"];
+    },
   },
 };
 </script>
