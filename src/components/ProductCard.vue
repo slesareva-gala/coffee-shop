@@ -1,11 +1,11 @@
 <template>
-  <div :class="classCard">
+  <div :class="classCard" @click="onEmmit(card.id)">
     <img :src="require(`@/assets/img/${card.image}`)" :alt="card.image" />
     <div :class="classCard + '-title'">{{ card.name }}</div>
     <div v-show="card.country" :class="classCard + '-country'">
       {{ card.country }}
     </div>
-    <div :class="classCard + '-price'">{{ card.price }}$</div>
+    <div :class="classCard + '-price'">{{ card.price | addCurrency }}</div>
   </div>
 </template>
 
@@ -13,26 +13,17 @@
 export default {
   props: {
     card: {
-      name: {
-        type: String,
-        require: true,
-      },
-      price: {
-        type: Number,
-        require: true,
-      },
-      image: {
-        type: String,
-        require: true,
-      },
-      country: {
-        type: String,
-        require: false,
-      },
+      type: Object,
+      required: true,
     },
     classCard: {
       type: String,
       default: "shop__item",
+    },
+  },
+  methods: {
+    onEmmit(id) {
+      this.$emit("onNavigate", id);
     },
   },
 };

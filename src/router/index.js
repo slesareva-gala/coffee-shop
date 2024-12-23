@@ -9,7 +9,8 @@ const routes = [
     { path: '/for-your-pleasure', component: () => import('@/views/ForYourPleasureView.vue') },
     { path: '/contact-us', component: () => import('@/views/ContactUsView.vue') },
     { path: '/thank-you', component: () => import('@/views/ThankYouView.vue') },
-    { path: '/our-cofee-item', component: () => import('@/views/GoodsItemView.vue') },
+    { name: 'coffee', path: '/our-cofee/:id', component: () => import('@/views/GoodsItemView.vue') },
+    { name: 'goods', path: '/for-your-pleasure/:id', component: () => import('@/views/GoodsItemView.vue') },
 ]
 
 const router = new VueRouter({
