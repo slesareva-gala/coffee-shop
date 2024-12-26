@@ -42,8 +42,8 @@
             </div>
           </div>
         </div>
-        <div v-if="!isLoading && coffee.length > 0" class="line"></div>
-        <div v-if="!isLoading && coffee.length > 0" class="row">
+        <div v-if="!isLoading" class="line"></div>
+        <div v-if="!isLoading" class="row">
           <div class="col-lg-4 offset-2">
             <form action="#" class="shop__search">
               <label class="shop__search-label" for="filter">Looking for</label>
@@ -52,6 +52,7 @@
                 type="text"
                 placeholder="start typing here..."
                 class="shop__search-input"
+                v-model="searchValue"
               />
             </form>
           </div>
@@ -59,9 +60,15 @@
             <div class="shop__filter">
               <div class="shop__filter-label">Or filter</div>
               <div class="shop__filter-group">
-                <button class="shop__filter-btn">Brazil</button>
-                <button class="shop__filter-btn">Kenya</button>
-                <button class="shop__filter-btn">Columbia</button>
+                <button class="shop__filter-btn" @click="onSort('Brazil')">
+                  Brazil
+                </button>
+                <button class="shop__filter-btn" @click="onSort('Kenya')">
+                  Kenya
+                </button>
+                <button class="shop__filter-btn" @click="onSort('Columbia')">
+                  Columbia
+                </button>
               </div>
             </div>
           </div>
@@ -102,6 +109,14 @@ export default {
     coffee() {
       return this.$store.getters["getCoffee"];
     },
+    searchValue: {
+      set(value) {
+        this.$store.dispatch("setSearchValue", value);
+      },
+      get() {
+        return this.$store.getters["getSearchValue"];
+      },
+    },
   },
   data() {
     return {
@@ -112,6 +127,11 @@ export default {
     };
   },
   mixins: [navigate, getData],
+  methods: {
+    onSort(value) {
+      this.$store.dispatch("setSortValue", value);
+    },
+  },
   destroyed() {
     this.$store.dispatch("setCoffeeData", []);
   },
