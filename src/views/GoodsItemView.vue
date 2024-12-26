@@ -2,7 +2,7 @@
   <main>
     <div
       class="banner"
-      :class="pageName === 'coffee' ? 'coffepage-banner' : 'goodspage-banner'"
+      :class="name === 'coffee' ? 'coffepage-banner' : 'goodspage-banner'"
     >
       <div class="container">
         <div class="row">
@@ -10,19 +10,15 @@
             <nav-bar-component />
           </div>
         </div>
-        <title-page :text="card.name" />
+        <title-page :text="product.name" v-if="!isLoading && product" />
       </div>
     </div>
 
-    <section class="shop">
+    <section class="shop" v-if="!isLoading && product">
       <div class="container">
         <div class="row">
-          <div class="col-lg-5 offset-1">
-            <img
-              class="shop__girl"
-              :src="require(`@/assets/img/${card.image}`)"
-              :alt="card.image"
-            />
+          <div class="col-lg-5 offset-0 offset-lg-1">
+            <img class="shop__girl" :src="product.image" :alt="product.image" />
           </div>
           <div class="col-lg-4">
             <div class="title">About it</div>
@@ -31,25 +27,25 @@
               src="@/assets/logo/Beans_logo_dark.svg"
               alt="Beans logo"
             />
-            <div v-show="card.country" class="shop__point">
+            <div v-show="product.country" class="shop__point">
               <span>Country:</span>
-              {{ card.country }}
+              {{ product.country }}
             </div>
-            <div class="shop__point">
+            <div v-show="product.description" class="shop__point">
               <span>Description:</span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {{ product.description }}
             </div>
-            <div class="shop__point">
+            <div v-show="product.price" class="shop__point">
               <span>Price:</span>
-              <span class="shop__point-price">
-                {{ card.price | addCurrency }}</span
-              >
+              <span class="shop__point-price"> {{ product.price }}</span>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <section class="shop" v-else-if="isLoading">
+      <div class="container">
+        <spinner-component class="row"></spinner-component>
       </div>
     </section>
   </main>
@@ -58,18 +54,30 @@
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import TitlePage from "@/components/TitlePage.vue";
+import SpinnerComponent from "@/components/SpinnerComponent.vue";
+
+import { getData } from "../mixins/serverData";
 
 export default {
-  components: { NavBarComponent, TitlePage },
+  components: { NavBarComponent, TitlePage, SpinnerComponent },
   computed: {
-    pageName() {
-      return this.$route.name;
+    product() {
+      return this.$store.getters["getProduct"];
     },
-    card() {
-      const pageGetter =
-        this.pageName === "coffee" ? "getCoffeeById" : "getGoodsById";
-      return this.$store.getters[pageGetter](this.$route.params.id);
-    },
+  },
+  data() {
+    return {
+      name: this.$route.name,
+      id: this.$route.params.id,
+      setDataTo: (data) => {
+        this.$store.dispatch("setProductData", data);
+      },
+    };
+  },
+  mixins: [getData],
+
+  destroyed() {
+    this.$store.dispatch("setProductData", null);
   },
 };
 </script>

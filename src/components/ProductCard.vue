@@ -1,11 +1,11 @@
 <template>
   <div :class="classCard" @click="onEmmit(card.id)">
-    <img :src="require(`@/assets/img/${card.image}`)" :alt="card.image" />
+    <img :src="card.image" :alt="card.image" />
     <div :class="classCard + '-title'">{{ card.name }}</div>
     <div v-show="card.country" :class="classCard + '-country'">
       {{ card.country }}
     </div>
-    <div :class="classCard + '-price'">{{ card.price | addCurrency }}</div>
+    <div :class="classCard + '-price'">{{ card.price }}</div>
   </div>
 </template>
 

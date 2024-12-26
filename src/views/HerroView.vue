@@ -61,9 +61,10 @@
         </div>
       </div>
     </section>
-    <section class="best">
-      <div class="container">
-        <div class="title" ref="ourBest">Our best</div>
+
+    <section class="best" ref="ourBest">
+      <div class="container" v-if="!isLoading && bestsellers.length > 0">
+        <div class="title">Our best</div>
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="best__wrapper">
@@ -77,6 +78,7 @@
           </div>
         </div>
       </div>
+      <spinner-component v-else-if="isLoading"></spinner-component>
     </section>
   </main>
 </template>
@@ -85,11 +87,13 @@
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import TitlePage from "@/components/TitlePage.vue";
+import SpinnerComponent from "@/components/SpinnerComponent.vue";
 
 import { scrollIntoView } from "seamless-scroll-polyfill";
+import { getData } from "../mixins/serverData";
 
 export default {
-  components: { NavBarComponent, ProductCard, TitlePage },
+  components: { NavBarComponent, ProductCard, TitlePage, SpinnerComponent },
   computed: {
     bestsellers() {
       return this.$store.getters["getBestsellers"];
@@ -103,8 +107,13 @@ export default {
           link: "/our-cofee",
         },
       ],
+      name: "bestsellers",
+      setDataTo: (data) => {
+        this.$store.dispatch("setBestsellersData", data);
+      },
     };
   },
+  mixins: [getData],
   methods: {
     smoothScroll() {
       scrollIntoView(this.$refs.ourBest, {
@@ -112,6 +121,9 @@ export default {
         block: "start",
       });
     },
+  },
+  destroyed() {
+    this.$store.dispatch("setBestsellersData", []);
   },
 };
 </script>

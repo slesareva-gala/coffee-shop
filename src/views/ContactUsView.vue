@@ -31,14 +31,14 @@
                 </div>
                 <div class="col col-12 col-sm-9">
                   <input
-                    v-model="v$.name.$model"
+                    v-model="v$.form.name.$model"
                     type="text"
                     class="form-control"
                     id="name-input"
                   />
                   <span
                     class="error-message"
-                    v-for="error in v$.name.$errors"
+                    v-for="error in v$.form.name.$errors"
                     :key="error.$uid"
                   >
                     {{ error.$message }}
@@ -55,14 +55,14 @@
                 </div>
                 <div class="col col-12 col-sm-9">
                   <input
-                    v-model="v$.email.$model"
+                    v-model="v$.form.email.$model"
                     type="email"
                     class="form-control"
                     id="email-input"
                   />
                   <span
                     class="error-message"
-                    v-for="error in v$.email.$errors"
+                    v-for="error in v$.form.email.$errors"
                     :key="error.$uid"
                   >
                     {{ error.$message }}
@@ -76,14 +76,14 @@
                 </div>
                 <div class="col col-12 col-sm-9">
                   <input
-                    v-model="v$.phone.$model"
+                    v-model="v$.form.phone.$model"
                     type="tel"
                     class="form-control"
                     id="phone-input"
                   />
                   <span
                     class="error-message"
-                    v-for="error in v$.phone.$errors"
+                    v-for="error in v$.form.phone.$errors"
                     :key="error.$uid"
                   >
                     {{ error.$message }}
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col col-12">
                   <textarea
-                    v-model="v$.message.$model"
+                    v-model="v$.form.message.$model"
                     class="form-control"
                     name="message"
                     id="message"
@@ -109,7 +109,7 @@
                   ></textarea>
                   <span
                     class="error-message col col-12 col-sm-9"
-                    v-for="error in v$.message.$errors"
+                    v-for="error in v$.form.message.$errors"
                     :key="error.$uid"
                   >
                     {{ error.$message }}
@@ -160,6 +160,8 @@ import { required, email, maxLength } from "@vuelidate/validators";
 import { helpers } from "@vuelidate/validators";
 import { minLength } from "@/validators/minLength";
 
+import { sendData } from "../mixins/serverData";
+
 export default {
   components: { NavBarComponent, TitlePage },
   setup() {
@@ -167,22 +169,26 @@ export default {
   },
   data() {
     return {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
+      form: {
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      },
       consent: true,
     };
   },
   validations() {
     return {
-      name: { required },
-      email: { required, email },
-      phone: {},
-      message: {
-        required,
-        maxLength: maxLength(20),
-        minLength: helpers.withMessage("This value min 5", minLength),
+      form: {
+        name: { required },
+        email: { required, email },
+        phone: {},
+        message: {
+          required,
+          maxLength: maxLength(20),
+          minLength: helpers.withMessage("This value min 5", minLength),
+        },
       },
       consent: {
         required,
@@ -195,12 +201,11 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
-      console.log({
-        name: this.name,
-        email: this.email,
-        phone: this.phone,
-        message: this.message,
-        consent: this.consent,
+      sendData(this.form, () => {
+        Object.keys(this.form).forEach((key) => {
+          this.form[key] = "";
+        });
+        this.v$.$reset();
       });
     },
   },

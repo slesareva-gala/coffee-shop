@@ -42,8 +42,8 @@
             </div>
           </div>
         </div>
-        <div class="line"></div>
-        <div class="row">
+        <div v-if="!isLoading && coffee.length > 0" class="line"></div>
+        <div v-if="!isLoading && coffee.length > 0" class="row">
           <div class="col-lg-4 offset-2">
             <form action="#" class="shop__search">
               <label class="shop__search-label" for="filter">Looking for</label>
@@ -66,7 +66,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div v-if="!isLoading && coffee.length > 0" class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
               <product-card
@@ -78,6 +78,10 @@
             </div>
           </div>
         </div>
+        <spinner-component
+          v-else-if="isLoading"
+          class="shop"
+        ></spinner-component>
       </div>
     </section>
   </main>
@@ -87,11 +91,13 @@
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import TitlePage from "@/components/TitlePage.vue";
+import SpinnerComponent from "@/components/SpinnerComponent.vue";
 
 import { navigate } from "../mixins/navigate";
+import { getData } from "../mixins/serverData";
 
 export default {
-  components: { NavBarComponent, ProductCard, TitlePage },
+  components: { NavBarComponent, ProductCard, TitlePage, SpinnerComponent },
   computed: {
     coffee() {
       return this.$store.getters["getCoffee"];
@@ -100,8 +106,14 @@ export default {
   data() {
     return {
       name: "coffee",
+      setDataTo: (data) => {
+        this.$store.dispatch("setCoffeeData", data);
+      },
     };
   },
-  mixins: [navigate],
+  mixins: [navigate, getData],
+  destroyed() {
+    this.$store.dispatch("setCoffeeData", []);
+  },
 };
 </script>
