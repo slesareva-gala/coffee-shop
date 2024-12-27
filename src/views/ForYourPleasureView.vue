@@ -81,16 +81,27 @@ export default {
     goods() {
       return this.$store.getters["getGoods"];
     },
+    isLoading() {
+      return this.$store.getters["getIsLoading"];
+    },
   },
   data() {
     return {
       name: "goods",
-      setDataTo: (data) => {
-        this.$store.dispatch("setGoodsData", data);
-      },
     };
   },
-  mixins: [navigate, getData],
+  mixins: [navigate],
+  mounted() {
+    this.$store.dispatch("setIsLoading", true);
+    getData({
+      name: this.name,
+      callback: (data) => {
+        this.$store.dispatch("setIsLoading", false);
+        this.$store.dispatch("setGoodsData", data);
+      },
+      delay: 1000,
+    });
+  },
   destroyed() {
     this.$store.dispatch("setGoodsData", []);
   },

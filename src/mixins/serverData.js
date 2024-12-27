@@ -1,28 +1,22 @@
 const jsonServer = "http://localhost:3000";
 
-export const getData = {
-    mounted() {
-        this.$store.dispatch("setIsLoading", true);
-        fetch(`${jsonServer}/${this.name}${this.id ? "/" + this.id : ""}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setTimeout(() => {
-                    this.$store.dispatch("setIsLoading", false);
-                    this.setDataTo(data)
-                }, 3000)
-            })
-            .catch(() => {
+export const getData = ({ name = "", id = "", q = "", callback = () => null, delay = 0 }) => {
+    const request =
+        `${jsonServer}
+        ${name ? "/" + name : ""}
+        ${id ? "/" + id : ""}
+        ${q ? "?q=" + q : ""}`.replace(/\s+/g, '')
 
-            })
-    },
-    computed: {
-        isLoading() {
-            return this.$store.getters["getIsLoading"];
-        },
-    },
+    fetch(request)
+        .then((res) => res.json())
+        .then((data) => {
+            setTimeout(() => {
+                callback(data)
+            }, delay)
+        })
 }
 
-export const sendData = (message, callback = () => null) => {
+export const sendData = ({ message, callback = () => null }) => {
 
     fetch(`${jsonServer}/contacts`, {
         method: "POST",

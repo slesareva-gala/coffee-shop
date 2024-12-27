@@ -19,9 +19,6 @@
               We makes every day full of energy and taste
             </div>
             <div class="preview__subtitle">Want to try our beans?</div>
-            <!-- <router-link :to="links[0].link" class="preview__btn"
-              >More</router-link
-            > -->
             <a
               href=".coffeepage.html"
               class="preview__btn"
@@ -98,22 +95,10 @@ export default {
     bestsellers() {
       return this.$store.getters["getBestsellers"];
     },
+    isLoading() {
+      return this.$store.getters["getIsLoading"];
+    },
   },
-  data() {
-    return {
-      links: [
-        {
-          id: 1,
-          link: "/our-cofee",
-        },
-      ],
-      name: "bestsellers",
-      setDataTo: (data) => {
-        this.$store.dispatch("setBestsellersData", data);
-      },
-    };
-  },
-  mixins: [getData],
   methods: {
     smoothScroll() {
       scrollIntoView(this.$refs.ourBest, {
@@ -121,6 +106,17 @@ export default {
         block: "start",
       });
     },
+  },
+  mounted() {
+    this.$store.dispatch("setIsLoading", true);
+    getData({
+      name: "bestsellers",
+      callback: (data) => {
+        this.$store.dispatch("setIsLoading", false);
+        this.$store.dispatch("setBestsellersData", data);
+      },
+      delay: 1000,
+    });
   },
   destroyed() {
     this.$store.dispatch("setBestsellersData", []);

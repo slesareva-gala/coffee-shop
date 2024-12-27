@@ -2,7 +2,6 @@ const coffee = {
     state: {
         coffee: [],
         searchValue: '',
-        sortValue: ''
     },
     mutations: {
         setCoffeeData(state, data) {
@@ -10,10 +9,6 @@ const coffee = {
         },
         setSearchValue(state, value) {
             state.searchValue = value
-        },
-        setSortValue(state, value) {
-            console.log('value: ', value);
-            state.sortValue = value
         },
     },
     actions: {
@@ -23,19 +18,10 @@ const coffee = {
         setSearchValue({ commit }, value) {
             commit('setSearchValue', value)
         },
-        setSortValue({ commit }, value) {
-            commit('setSortValue', value)
-        },
     },
     getters: {
         getCoffee(state) {
-            return state.coffee.filter(item => item.name
-                .toLowerCase()
-                .includes(state.searchValue.toLowerCase())
-            ).filter(item => item.country
-                .toLowerCase()
-                .includes(state.sortValue.toLowerCase())
-            )
+            return state.coffee
         },
         getCoffeeById(state) {
             return (id) => {

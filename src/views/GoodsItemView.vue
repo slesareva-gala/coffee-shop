@@ -64,18 +64,27 @@ export default {
     product() {
       return this.$store.getters["getProduct"];
     },
+    isLoading() {
+      return this.$store.getters["getIsLoading"];
+    },
   },
   data() {
     return {
       name: this.$route.name,
-      id: this.$route.params.id,
-      setDataTo: (data) => {
-        this.$store.dispatch("setProductData", data);
-      },
     };
   },
-  mixins: [getData],
-
+  mounted() {
+    this.$store.dispatch("setIsLoading", true);
+    getData({
+      name: this.name,
+      id: this.$route.params.id,
+      callback: (data) => {
+        this.$store.dispatch("setIsLoading", false);
+        this.$store.dispatch("setProductData", data);
+      },
+      delay: 500,
+    });
+  },
   destroyed() {
     this.$store.dispatch("setProductData", null);
   },

@@ -201,11 +201,15 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
-      sendData(this.form, () => {
-        Object.keys(this.form).forEach((key) => {
-          this.form[key] = "";
-        });
-        this.v$.$reset();
+      sendData({
+        message: this.form,
+        callback: () => {
+          Object.keys(this.form).forEach((key) => {
+            this.form[key] = "";
+          });
+          this.v$.$reset();
+          this.$router.push({ name: "thank-you" });
+        },
       });
     },
   },

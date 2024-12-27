@@ -53,6 +53,7 @@
                 placeholder="start typing here..."
                 class="shop__search-input"
                 v-model="searchValue"
+                @input="onSearch($event)"
               />
             </form>
           </div>
@@ -68,6 +69,13 @@
                 </button>
                 <button class="shop__filter-btn" @click="onSort('Columbia')">
                   Columbia
+                </button>
+                <button
+                  v-show="searchValue"
+                  class="shop__filter-btn"
+                  @click="onSort('')"
+                >
+                  All
                 </button>
               </div>
             </div>
@@ -102,6 +110,7 @@ import SpinnerComponent from "@/components/SpinnerComponent.vue";
 
 import { navigate } from "../mixins/navigate";
 import { getData } from "../mixins/serverData";
+import debounce from "debounce";
 
 export default {
   components: { NavBarComponent, ProductCard, TitlePage, SpinnerComponent },
@@ -117,20 +126,42 @@ export default {
         return this.$store.getters["getSearchValue"];
       },
     },
+    isLoading() {
+      return this.$store.getters["getIsLoading"];
+    },
   },
   data() {
     return {
       name: "coffee",
-      setDataTo: (data) => {
-        this.$store.dispatch("setCoffeeData", data);
-      },
     };
   },
-  mixins: [navigate, getData],
+  mixins: [navigate],
   methods: {
+    onSearch: debounce(function (e) {
+      this.onSort(e.target.value);
+    }, 500),
     onSort(value) {
-      this.$store.dispatch("setSortValue", value);
+      this.$store.dispatch("setSearchValue", value);
+
+      getData({
+        name: this.name,
+        q: value,
+        callback: (data) => {
+          this.$store.dispatch("setCoffeeData", data);
+        },
+      });
     },
+  },
+  mounted() {
+    this.$store.dispatch("setIsLoading", true);
+    getData({
+      name: this.name,
+      callback: (data) => {
+        this.$store.dispatch("setIsLoading", false);
+        this.$store.dispatch("setCoffeeData", data);
+      },
+      delay: 1000,
+    });
   },
   destroyed() {
     this.$store.dispatch("setCoffeeData", []);
